@@ -12,7 +12,7 @@ class Table:
         self.height = height
 
         self.canvas = Canvas(self.window, width = self.width, height = self.height)
-        self.canvas.pack()
+        self.canvas.pack(side='left')
 
         self.node_side = min([self.height,self.width])/side
 

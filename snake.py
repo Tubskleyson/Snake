@@ -8,6 +8,8 @@ class Snake:
 
         self.size = 5
 
+        self.dead = 0
+
         self.rings = []
 
         for i in range(self.size):
@@ -39,7 +41,12 @@ class Snake:
 
                 new = old.next(self.direction)
 
-                if new.state == 2: self.ate = 1
+                if not new or new.state == 1:
+                    self.dead = 1
+                    print('E morreu')
+                    return
+
+                elif new.state == 2: self.ate = 1
 
             old.set(0)
 
@@ -58,3 +65,4 @@ class Snake:
             self.ate = 0
 
             self.launcher.food = 0
+            self.launcher.board.scoreup(1)

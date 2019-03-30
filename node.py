@@ -26,5 +26,6 @@ class Node:
     def next(self,direction):
 
         x,y = [self.coords[i]+direction[i] for i in range(2)]
-        return self.table.nodes[x][y]
+
+        return self.table.get(x,y)
 

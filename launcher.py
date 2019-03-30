@@ -1,5 +1,6 @@
-from tkinter import Tk
+from tkinter import *
 from table import Table
+from board import Board
 from snake import Snake
 from random import randint
 
@@ -7,10 +8,37 @@ class Launcher:
 
     def __init__(self,side):
 
-        self.window = Tk()
-        self.window.geometry("%sx%s"%(side,side))
+        self.side = side
 
-        self.table = Table(self.window,50,side,side)
+        self.window = Tk()
+        self.window.geometry("%sx%s"%(side+200,side))
+
+        self.menu = Frame(self.window)
+
+        title = Label(self.menu,text="The Snake",font=('Arial',40))
+        bt1 = Button(self.menu, text='Start', font=('Arial',15), width=10, command=self.start)
+
+        self.menuWidg = [title,bt1]
+
+        for i in self.menuWidg: i.pack(pady=30)
+
+        self.menu.pack(pady=70)
+
+        self.onscreen = self.menu
+
+        self.window.mainloop()
+
+    def start(self):
+
+        side = self.side
+
+        self.speed = 50
+
+        self.onscreen.destroy()
+
+        self.table = Table(self.window, 50, side, side)
+
+        self.board = Board(self)
 
         self.snake = Snake(self)
 
@@ -20,19 +48,24 @@ class Launcher:
 
         self.food = 0
 
-        self.fc = 20 #food countdown
+        self.fc = 20  # food countdown
 
-        self.window.mainloop()
-
+        self.onscreen = self.table.canvas
 
 
     def update(self):
 
+        if not self.snake.dead: self.window.after(self.speed, self.update)
+
+        else:
+
+            self.board.death()
+            return
+
         self.snake.move()
 
-        self.window.after(100, self.update)
-
         if not self.food:
+
             self.fc -= 1
 
         if not self.fc:
@@ -65,6 +98,10 @@ class Launcher:
 
         self.food = 1
         self.fc = 20
+
+    def restart(self):
+
+        pass
 
 
 
