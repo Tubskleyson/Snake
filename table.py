@@ -30,7 +30,7 @@ class Table:
 
     def get(self,x,y):
 
-        if all(i>0 and i<self.side for i in [x,y]):
+        if all(i>=0 and i<self.side for i in [x,y]):
             return self.nodes[x][y]
 
         return 0

@@ -24,7 +24,7 @@ class Launcher:
 
         self.menu.pack(pady=70)
 
-        self.onscreen = self.menu
+        self.onscreen = [self.menu]
 
         self.window.mainloop()
 
@@ -34,7 +34,7 @@ class Launcher:
 
         self.speed = 50
 
-        self.onscreen.destroy()
+        for i in self.onscreen: i.destroy()
 
         self.table = Table(self.window, 50, side, side)
 
@@ -50,7 +50,7 @@ class Launcher:
 
         self.fc = 20  # food countdown
 
-        self.onscreen = self.table.canvas
+        self.onscreen = [self.table.canvas, self.board.frame]
 
 
     def update(self):
@@ -80,7 +80,9 @@ class Launcher:
         l = ['w',[0,-1],'a',[-1,0],'s',[0,1],'d',[1,0]]
 
         if key in l:
-            self.snake.direction = l[l.index(key)+1]
+            d = l[l.index(key)+1]
+            if not all(not i for i in [d[i]+self.snake.direction[i] for i in range(2)]):
+                self.snake.direction = d
 
     def makefood(self):
 

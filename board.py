@@ -26,5 +26,6 @@ class Board:
 
     def death(self):
 
-        restart = Button(self.frame, text='Restart',font=('Arial',13), command=self.launcher.restart)
+        restart = Button(self.frame, text='Restart',font=('Arial',13), command=self.launcher.start)
         restart.pack(side='bottom')
+
