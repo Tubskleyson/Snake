@@ -16,6 +16,12 @@ class Board:
         scoreLbl.pack(pady=10)
         self.score.pack()
 
+        levelLbl = Label(cell0,text='Level', font=('Arial',20))
+        self.level = Label(cell0,text=0,font=('Arial',15))
+
+        levelLbl.pack(pady=10)
+        self.level.pack()
+
         cell0.pack(pady=30)
 
         self.frame.pack()
@@ -23,6 +29,10 @@ class Board:
     def scoreup(self,value):
 
         self.score['text'] += value
+
+    def levelup(self):
+
+        self.level['text'] += 1
 
     def death(self):
 

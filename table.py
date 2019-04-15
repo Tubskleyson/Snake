@@ -33,4 +33,9 @@ class Table:
         if all(i>=0 and i<self.side for i in [x,y]):
             return self.nodes[x][y]
 
-        return 0
+        if x<0: x = self.side-1
+        if y < 0: y = self.side - 1
+        if x == self.side: x = 0
+        if y == self.side: y = 0
+
+        return self.nodes[x][y]

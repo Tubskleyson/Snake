@@ -19,6 +19,7 @@ class Snake:
             self.spawn(p-i,p)
 
         self.direction = [1,0]
+        self.newdirection = self.direction
 
         self.ate = 0
 

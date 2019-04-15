@@ -52,6 +52,8 @@ class Launcher:
 
         self.onscreen = [self.table.canvas, self.board.frame]
 
+        self.nvl = 1
+
 
     def update(self):
 
@@ -62,6 +64,15 @@ class Launcher:
             self.board.death()
             return
 
+        if self.snake.size/10 == self.nvl:
+
+            print('Level up')
+            self.nvl += 1
+            self.speed -= 2
+
+            self.board.levelup()
+
+        self.snake.direction = self.snake.newdirection
         self.snake.move()
 
         if not self.food:
@@ -75,14 +86,18 @@ class Launcher:
 
     def keypress(self,e):
 
-        key = e.char
+        code = e.keycode
+        char = e.char
 
         l = ['w',[0,-1],'a',[-1,0],'s',[0,1],'d',[1,0]]
+        k = [38, [0, -1], 37, [-1, 0], 40, [0, 1], 39, [1, 0]]
 
-        if key in l:
-            d = l[l.index(key)+1]
-            if not all(not i for i in [d[i]+self.snake.direction[i] for i in range(2)]):
-                self.snake.direction = d
+        d = 0
+        if char in l: d = l[l.index(char)+1]
+        if code in k: d = k[k.index(code) + 1]
+
+        if d and not all(not i for i in [d[i]+self.snake.direction[i] for i in range(2)]):
+            self.snake.newdirection = d
 
     def makefood(self):
 
